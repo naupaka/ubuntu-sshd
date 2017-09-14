@@ -14,4 +14,4 @@ EXPOSE 22
 
 COPY init.sh /
 
-ENTRYPOINT ["/init.sh"]
+CMD ["/init.sh"]

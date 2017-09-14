@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Create new user
 useradd --shell /bin/bash $1
