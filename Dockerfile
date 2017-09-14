@@ -12,4 +12,6 @@ RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
 EXPOSE 22
 
+COPY init.sh /
+
 ENTRYPOINT ["/init.sh"]
