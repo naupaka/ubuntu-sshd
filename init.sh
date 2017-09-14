@@ -2,8 +2,6 @@
 
 # Create new user
 useradd --shell /bin/bash $1
-sudo echo '$1:$2' | chpasswd
-
-cp /home/data ~/data
+echo '$1:$2' | sudo chpasswd
 
 /usr/sbin/sshd -D
