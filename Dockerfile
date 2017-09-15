@@ -2,7 +2,7 @@ FROM       ubuntu:16.04
 MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 
 RUN apt-get update
-RUN apt-get install -y openssh-server tmux nano git 
+RUN apt-get install -y openssh-server tmux nano git unzip 
 RUN mkdir /var/run/sshd
 
 # RUN echo 'root:root' | chpasswd
