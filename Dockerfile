@@ -31,7 +31,7 @@ RUN rm -rf /home/FastQC
 RUN wget --output-document /home/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
 
 # un-gnuzip and untar
-RUN tar -vxzf /home/sratoolkit.tar.gz
+RUN tar -vxzf /home/sratoolkit.tar.gz -C /home
 
 # archive download
 RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src
