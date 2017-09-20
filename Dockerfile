@@ -23,6 +23,7 @@ RUN cp /home/FastQC/Configuration/adapter_list.txt \
     /etc/fastqc/Configuration
 
 # delete unzipped directory and archive source
+RUN mkdir -p /home/code/downloaded_src
 RUN mv /home/fastqc_v0.11.5_source.zip /home/code/downloaded_src
 RUN rm -rf /home/FastQC
 
@@ -37,7 +38,6 @@ RUN mkdir -p /home/code/tools
 RUN mv /home/sratoolkit.2.8.2-1-ubuntu64 /home/code/tools
 
 # archive download
-RUN mkdir -p /home/code/downloaded_src
 RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src
 
 RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git
