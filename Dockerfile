@@ -57,7 +57,7 @@ COPY init.sh /
 
 WORKDIR /home
 
-ENV PATH="${PATH}:/home/code"
-ENV BLASTDB="/blast-db"
+RUN echo "PATH=${PATH}:/home/code" >> /home/.bashrc
+RUN echo "BLASTDB=/blast-db" >> /home/.bashrc
 
 ENTRYPOINT ["/init.sh"]
