@@ -3,7 +3,8 @@ MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 
 RUN apt-get update
 RUN apt-get install -y openssh-server tmux nano git unzip \
-    trimmomatic fastqc bison byacc ncbi-blast+ curl wget tar make gcc
+    trimmomatic fastqc bison byacc ncbi-blast+ curl wget tar \
+    make gcc libz-dev
 
 # there is a problem with normal fastqc installation
 # have to fix by downloading config files from source
