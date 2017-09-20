@@ -16,7 +16,7 @@ RUN curl http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5
 RUN unzip /home/fastqc_v0.11.5_source.zip
 
 # Make the directory and copy the files into it
-RUN mkdir /etc/fastqc/Configuration
+RUN mkdir -p /etc/fastqc/Configuration
 RUN cp /home/FastQC/Configuration/*.txt /etc/fastqc/Configuration
 
 # delete unzipped directory and archive source
