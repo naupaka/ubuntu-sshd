@@ -33,12 +33,12 @@ RUN wget --output-document /home/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih
 # un-gnuzip and untar
 RUN tar -vxzf /home/sratoolkit.tar.gz
 
+# archive download
+RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src
+
 # move to code/tools
 RUN mkdir -p /home/code/tools
 RUN mv /home/sratoolkit.2.8.2-1-ubuntu64 /home/code/tools
-
-# archive download
-RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src
 
 RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git
 RUN cd /home/code/tools/bioawk; make
