@@ -17,7 +17,10 @@ RUN unzip /home/fastqc_v0.11.5_source.zip
 
 # Make the directory and copy the files into it
 RUN mkdir -p /etc/fastqc/Configuration
-RUN cp /home/FastQC/Configuration/*.txt /etc/fastqc/Configuration
+RUN cp /home/FastQC/Configuration/adapter_list.txt \
+    /home/FastQC/Configuration/limits.txt  \
+    /home/FastQC/Configuration/contaminant_list.txt \
+    /etc/fastqc/Configuration
 
 # delete unzipped directory and archive source
 RUN mv /home/fastqc_v0.11.5_source.zip /home/code/downloaded_src
