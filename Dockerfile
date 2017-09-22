@@ -57,7 +57,7 @@ COPY init.sh /
 
 WORKDIR /home
 
-RUN echo "PATH=${PATH}:code/tools/sratoolkit.2.8.2-1-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.bashrc
+RUN echo "PATH=${PATH}:/home/code/tools/sratoolkit.2.8.2-1-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.bashrc
 RUN echo "BLASTDB=/blast-db" >> /home/.bashrc
 
 ENTRYPOINT ["/init.sh"]
