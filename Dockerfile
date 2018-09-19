@@ -60,4 +60,6 @@ WORKDIR /home
 RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit.2.9.2-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.bashrc
 RUN echo "export BLASTDB=/blast-db" >> /home/.bashrc
 
+SHELL ["/bin/bash", "-c"]
+
 ENTRYPOINT ["/init.sh"]
