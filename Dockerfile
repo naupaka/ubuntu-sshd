@@ -53,6 +53,7 @@ RUN sed -ri 's/^\#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/s
 
 EXPOSE 22
 
+COPY markdown.nanorc /usr/share/nano/
 COPY init.sh /
 
 WORKDIR /home
