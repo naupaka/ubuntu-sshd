@@ -63,4 +63,4 @@ RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 
 SHELL ["/bin/bash", "-c"]
 
-ENTRYPOINT ["/init.sh"]
+# ENTRYPOINT ["/init.sh"]
