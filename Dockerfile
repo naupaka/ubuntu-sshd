@@ -1,4 +1,4 @@
-FROM       ubuntu:16.04
+FROM       rocker/rstudio
 MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 
 RUN apt-get update
