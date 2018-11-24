@@ -1,4 +1,4 @@
-FROM       rocker/rstudio
+FROM       rocker/verse
 MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 
 RUN apt-get update
@@ -64,3 +64,5 @@ RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 SHELL ["/bin/bash", "-c"]
 
 # ENTRYPOINT ["/init.sh"]
+
+CMD ["/init"]
