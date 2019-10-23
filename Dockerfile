@@ -6,6 +6,10 @@ RUN apt-get install -y openssh-server tmux nano git unzip \
     trimmomatic fastqc bison byacc ncbi-blast+ curl wget tar \
     make gcc libz-dev shellcheck libcurl4-openssl-dev
 
+# Install R packages
+RUN install2.r --error \
+    neonUtilities
+
 # there is a problem with normal fastqc installation
 # have to fix by downloading config files from source
 # http://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc
