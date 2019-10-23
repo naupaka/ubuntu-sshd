@@ -1,4 +1,4 @@
-FROM       rocker/r-apt
+FROM       rocker/r-apt:bionic
 MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 
 RUN apt-get update
