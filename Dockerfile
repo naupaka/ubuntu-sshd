@@ -4,7 +4,8 @@ MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 RUN apt-get update
 RUN apt-get install -y openssh-server tmux nano git unzip \
     trimmomatic fastqc bison byacc ncbi-blast+ curl wget tar \
-    make gcc libz-dev shellcheck libcurl4-openssl-dev libssl-dev
+    make gcc libz-dev shellcheck libcurl4-openssl-dev libssl-dev \
+    libmariadbclient-dev postgresql-devel
 
 # Install R packages
 RUN install2.r --error --deps \
