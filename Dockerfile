@@ -8,7 +8,7 @@ RUN apt-get install -y openssh-server tmux nano git unzip \
 
 # Install R packages
 RUN install2.r --error --deps \
-    neonUtilities utils plyr dplyr
+    neonUtilities plyr dplyr
 
 # there is a problem with normal fastqc installation
 # have to fix by downloading config files from source
