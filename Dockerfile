@@ -8,7 +8,7 @@ RUN apt-get install -y openssh-server tmux nano git unzip \
     libmariadbclient-dev postgresql postgresql-contrib
 
 # Install R packages
-RUN install2.r --error --deps \
+RUN install2.r --error \
     neonUtilities plyr dplyr
 
 # there is a problem with normal fastqc installation
