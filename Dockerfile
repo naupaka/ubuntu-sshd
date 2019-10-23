@@ -7,7 +7,7 @@ RUN apt-get install -y openssh-server tmux nano git unzip \
     make gcc libz-dev shellcheck libcurl4-openssl-dev libssl-dev
 
 # Install R packages
-RUN install2.r --error \
+RUN install2.r --error --deps \
     neonUtilities
 
 # there is a problem with normal fastqc installation
