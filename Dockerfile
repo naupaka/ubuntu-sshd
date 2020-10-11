@@ -51,8 +51,6 @@ RUN mkdir /var/run/sshd
 # RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/^\#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-EXPOSE 22 8787 3838
-
 COPY markdown.nanorc /usr/share/nano/
 COPY init.sh /
 
@@ -65,4 +63,6 @@ SHELL ["/bin/bash", "-c"]
 
 ## ENTRYPOINT ["/init.sh"]
 
-CMD ["/init"]
+RUN /init.sh
+
+EXPOSE 22 8787 3838
