@@ -1,4 +1,4 @@
-FROM       rocker/verse
+FROM       rocker/geospatial
 MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
 
 RUN apt-get update
@@ -51,7 +51,7 @@ RUN mkdir /var/run/sshd
 # RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/^\#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-EXPOSE 22
+EXPOSE 22 8787 3838
 
 COPY markdown.nanorc /usr/share/nano/
 COPY init.sh /
