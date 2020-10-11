@@ -61,8 +61,6 @@ RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 
 SHELL ["/bin/bash", "-c"]
 
-## ENTRYPOINT ["/init.sh"]
-
-RUN /init.sh
+CMD ["/init.sh"]
 
 EXPOSE 22 8787 3838
