@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Create new user
-useradd --shell /bin/bash -m $1
-echo "$1:$2" | chpasswd
-chown -R $1:$1 /home/$1
-chown -R $1:$1 /data
+useradd --shell "/bin/bash" -M -d "/home/$USER"
+echo "$USER:$PASSWORD" | chpasswd
+chown -R $USER:$USER "/home/$USER"
+chown -R $USER:$USER /data
 groupadd ssh-users
-usermod -a -G ssh-users $1
+usermod -a -G ssh-users $USER
 
 ## Setup SSH and cron. s6 supervisor already installed for RStudio, so
 ## just create the run and finish scripts
@@ -22,4 +22,4 @@ sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 echo "AllowGroups ssh-users" >> /etc/ssh/sshd_config
 
-/init
+# /init
