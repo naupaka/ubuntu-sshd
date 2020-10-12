@@ -1,9 +1,7 @@
 #!/bin/sh
 
-groupadd ssh-users
-
 # Create new user
-useradd --shell "/usr/bin/bash" -G ssh-users -M -d "/home/$USER"
+useradd --shell "/usr/bin/bash" -M -d "/home/$USER"
 
 echo "$USER and $PASSWORD are here" > /testing_startup.txt
 
@@ -23,6 +21,6 @@ service ssh stop
 " > /etc/services.d/sshd/finish
 sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-echo "AllowGroups ssh-users" >> /etc/ssh/sshd_config
+#echo "AllowGroups ssh-users" >> /etc/ssh/sshd_config
 
 /init
