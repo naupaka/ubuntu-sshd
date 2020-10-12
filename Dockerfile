@@ -52,7 +52,7 @@ RUN mkdir /var/run/sshd
 RUN sed -ri 's/^\#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 COPY markdown.nanorc /usr/share/nano/
-COPY init.sh /
+COPY init_docker.sh /
 
 WORKDIR /home
 
@@ -61,6 +61,6 @@ RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 
 SHELL ["/bin/bash", "-c"]
 
-CMD ["/init.sh"]
+CMD ["/init_docker.sh"]
 
 EXPOSE 22 8787 3838
