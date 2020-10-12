@@ -59,9 +59,7 @@ WORKDIR /home
 RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit.2.10.8-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.profile
 RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 
-RUN echo "chsh --shell /bin/bash '$USER'" >> /etc/cont-init.d/userconf
-RUN echo "cp /home/.profile /home/$USER/.profile" >> /etc/cont-init.d/userconf
-
-CMD ["/init_docker.sh"]
+ENTRYPOINT ["/init_docker.sh"]
+CMD ["/init"]
 
 EXPOSE 22 8787 3838
