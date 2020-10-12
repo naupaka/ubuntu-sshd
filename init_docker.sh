@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Create new user
-useradd --shell "/usr/bin/bash" -M -d "/home/$USER"
+# useradd --shell "/usr/bin/bash" -M -d "/home/$USER"
 
 echo "$USER and $PASSWORD are here" > /testing_startup.txt
 
-echo "$USER:$PASSWORD" | chpasswd
-chown -R $USER:$USER "/home/$USER"
+# echo "$USER:$PASSWORD" | chpasswd
+# chown -R $USER:$USER "/home/$USER"
 chown -R $USER:$USER /data
 
 ## Setup SSH and cron. s6 supervisor already installed for RStudio, so
