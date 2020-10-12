@@ -3,7 +3,7 @@
 echo "$USER and $PASSWORD are here" > /testing_startup.txt
 
 chown -R $USER:$USER /data
-chsh --shell /bin/bash "$USER"
+mkdir /home/$USER
 cp /home/.profile /home/$USER/
 
 ## Setup SSH and cron. s6 supervisor already installed for RStudio, so
