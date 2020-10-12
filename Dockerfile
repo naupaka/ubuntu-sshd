@@ -30,12 +30,8 @@ RUN rm -rf /home/FastQC
 
 # Download newest version of sratoolkit from NCBI
 RUN wget --output-document /home/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
-
-# un-gnuzip and untar
-RUN tar -vxzf /home/sratoolkit.tar.gz -C /home
-
-# archive download
-RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src
+RUN tar -vxzf /home/sratoolkit.tar.gz -C /home # un-gnuzip and untar
+RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src # archive download
 
 # move to code/tools
 RUN mkdir -p /home/code/tools
@@ -44,13 +40,6 @@ RUN mv /home/sratoolkit.2.10.8-ubuntu64 /home/code/tools
 RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git
 RUN cd /home/code/tools/bioawk; make
 
-RUN mkdir /var/run/sshd
-
-# RUN echo 'root:root' | chpasswd
-
-# RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -ri 's/^\#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
-
 COPY markdown.nanorc /usr/share/nano/
 COPY init_docker.sh /
 
@@ -58,8 +47,10 @@ WORKDIR /home
 
 RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit.2.10.8-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.profile
 RUN echo "export BLASTDB=/blast-db" >> /home/.profile
+RUN echo "git config --global core.editor nano" >> /home/.profile
 RUN echo "/usr/bin/bash" >> /home/.profile
 
 CMD ["/init_docker.sh"]
 
-EXPOSE 22 8787 3838
+# mosh 3838
+EXPOSE 22 8787

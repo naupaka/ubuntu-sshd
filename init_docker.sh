@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "$USER and $PASSWORD are here" > /testing_startup.txt
-
 chown -R $USER:$USER /data
 mkdir /home/$USER
 cp /home/.profile /home/$USER/
@@ -18,6 +16,6 @@ service ssh stop
 " > /etc/services.d/sshd/finish
 sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-#echo "AllowGroups ssh-users" >> /etc/ssh/sshd_config
+# echo "AllowGroups ssh-users" >> /etc/ssh/sshd_config # couldn't figure out how to add $USER to group
 
 /init
