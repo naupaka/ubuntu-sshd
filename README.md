@@ -9,13 +9,25 @@ The files in this directory create a Docker image that allows for simultaneous c
 
 The logic for this approach of configuration draws from [EcoHealth Alliance's 'Reservoir' container](https://github.com/ecohealthalliance/reservoir) and from the input and support of Noam Ross.
 
+To build the image:
+
+``` bash
+docker build -t rstudio-ssh-local .
+```
+
+
+
 An example bash script to start up the containers might look something like this:
 
 ``` bash
 #!/bin/bash
 
-## for rstudio server with ssh
+# Naupaka Zimmerman October 11, 2020
 
+## for rstudio server with ssh
+## bash this_script.sh config_file.txt
+
+# Script expects a tab-delimited file of configuration info as follows
 # field1 = email, field2 = username, field3 = password, field4 = port1, field5 = dirname, field6 = hostname, field7 = port2
 while read -r field1 field2 field3 field4 field5 field6 field7; do
   # process the fields
