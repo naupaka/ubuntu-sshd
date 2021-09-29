@@ -24,43 +24,43 @@ RUN R -e "install.packages('BiocManager');     if (!library(BiocManager, logical
 # into /etc/fastq/Configuration
 
 # Download the source and extract to get out config files
-RUN curl https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -o /home/fastqc_v0.11.9.zip
-RUN unzip /home/fastqc_v0.11.9.zip -d /home
+RUN curl https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -o /home/fastqc_v0.11.9.zip \
+ && unzip /home/fastqc_v0.11.9.zip -d /home
 
 # Make the directory and copy the files into it
-RUN mkdir -p /etc/fastqc/Configuration
-RUN cp /home/FastQC/Configuration/adapter_list.txt \
+RUN mkdir -p /etc/fastqc/Configuration \
+ && cp /home/FastQC/Configuration/adapter_list.txt \
     /home/FastQC/Configuration/limits.txt  \
     /home/FastQC/Configuration/contaminant_list.txt \
     /etc/fastqc/Configuration
 
 # delete unzipped directory and archive source
-RUN mkdir -p /home/code/downloaded_src
-RUN mv /home/fastqc_v0.11.9.zip /home/code/downloaded_src
-RUN rm -rf /home/FastQC
+RUN mkdir -p /home/code/downloaded_src \
+ && mv /home/fastqc_v0.11.9.zip /home/code/downloaded_src \
+ && rm -rf /home/FastQC
 
 
 ##### sratoolkit #####
 
 # Download newest version of sratoolkit from NCBI
-RUN wget --output-document /home/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
-RUN tar -vxzf /home/sratoolkit.tar.gz -C /home # un-gnuzip and untar
-RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src # archive download
+RUN wget --output-document /home/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz \
+ && tar -vxzf /home/sratoolkit.tar.gz -C /home \
+ && mv /home/sratoolkit.tar.gz /home/code/downloaded_src
 
 # move to code/tools
-RUN mkdir -p /home/code/tools
-RUN mv /home/sratoolkit.2.11.1-ubuntu64 /home/code/tools
+RUN mkdir -p /home/code/tools \
+ && mv /home/sratoolkit.2.11.1-ubuntu64 /home/code/tools
 
 
 ##### bioawk #####
 
-RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git
-RUN cd /home/code/tools/bioawk; make
+RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git \
+ && cd /home/code/tools/bioawk; make
 
 
 ##### mothur #####
-RUN curl https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64_static.zip -o /home/Mothur.linux_64_static.zip
-RUN unzip /home/Mothur.linux_64_static.zip -d /home
+RUN curl https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64_static.zip -o /home/Mothur.linux_64_static.zip \
+ && unzip /home/Mothur.linux_64_static.zip -d /home
 
 
 ##### Other misc #####
