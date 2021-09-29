@@ -12,7 +12,9 @@ RUN apt-get install -y openssh-server tmux nano git unzip \
 # https://stackoverflow.com/questions/45289764/install-r-packages-using-docker-file
 # install packages and check installation success, install.packages itself does not report fails
 RUN R -e "install.packages('BiocManager');     if (!library(BiocManager, logical.return = TRUE)) quit(status = 10)" \
- && R -e "install.packages('vegan'); if (!library(vegan, logical.return = TRUE)) quit(status = 10)"
+ && R -e "install.packages('vegan'); if (!library(vegan, logical.return = TRUE)) quit(status = 10)" \
+ && R -e "install.packages('ggpubr'); if (!library(ggpubr, logical.return = TRUE)) quit(status = 10)" \
+ && R -e "install.packages('ggmap'); if (!library(ggmap, logical.return = TRUE)) quit(status = 10)"
 
 
 ###### fastqc ######
