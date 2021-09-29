@@ -59,7 +59,7 @@ RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git \
 
 
 ##### mothur #####
-RUN curl https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64_static.zip -o /home/Mothur.linux_64_static.zip \
+RUN curl -L https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64_static.zip -o /home/Mothur.linux_64_static.zip \
  && unzip /home/Mothur.linux_64_static.zip -d /home
 
 
