@@ -13,8 +13,8 @@ RUN apt-get install -y openssh-server tmux nano git unzip \
 # into /etc/fastq/Configuration
 
 # Download the source and extract to get out config files
-RUN curl http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5_source.zip -o /home/fastqc_v0.11.5_source.zip
-RUN unzip /home/fastqc_v0.11.5_source.zip -d /home
+RUN curl https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -o /home/fastqc_v0.11.9.zip
+RUN unzip /home/fastqc_v0.11.9.zip -d /home
 
 # Make the directory and copy the files into it
 RUN mkdir -p /etc/fastqc/Configuration
@@ -25,7 +25,7 @@ RUN cp /home/FastQC/Configuration/adapter_list.txt \
 
 # delete unzipped directory and archive source
 RUN mkdir -p /home/code/downloaded_src
-RUN mv /home/fastqc_v0.11.5_source.zip /home/code/downloaded_src
+RUN mv /home/fastqc_v0.11.9.zip /home/code/downloaded_src
 RUN rm -rf /home/FastQC
 
 # Download newest version of sratoolkit from NCBI
@@ -35,7 +35,7 @@ RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src # archive download
 
 # move to code/tools
 RUN mkdir -p /home/code/tools
-RUN mv /home/sratoolkit.2.10.8-ubuntu64 /home/code/tools
+RUN mv /home/sratoolkit.2.11.1-ubuntu64 /home/code/tools
 
 RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git
 RUN cd /home/code/tools/bioawk; make
@@ -45,7 +45,7 @@ COPY init_docker.sh /
 
 WORKDIR /home
 
-RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit.2.10.8-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.profile
+RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit.2.11.1-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.profile
 RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 RUN echo "git config --global core.editor nano" >> /home/.profile
 RUN echo "/usr/bin/bash" >> /home/.profile
