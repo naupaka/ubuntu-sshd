@@ -1,51 +1,40 @@
-FROM       rocker/geospatial
-MAINTAINER Naupaka Zimmerman "https://github.com/naupaka"
+FROM       rocker/geospatial:4.5.3
+LABEL maintainer="Naupaka Zimmerman https://github.com/naupaka"
 
-RUN apt-get update
-RUN apt-get install -y openssh-server tmux nano git unzip \
-    trimmomatic fastqc bison byacc ncbi-blast+ curl wget tar \
-    make gcc libz-dev shellcheck
+RUN apt-get update -o Acquire::Retries=3 \
+ && apt-get install -y --no-install-recommends \
+      openssh-server tmux nano git unzip \
+      trimmomatic fastqc bison byacc ncbi-blast+ \
+      curl wget tar make gcc libz-dev shellcheck \
+ && rm -rf /var/lib/apt/lists/*
 
-# there is a problem with normal fastqc installation
-# have to fix by downloading config files from source
-# http://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc
-# and then putting the three files from the Configuration folder
-# into /etc/fastq/Configuration
+# Install FastQC config files manually — the Debian/Ubuntu package
+# ships without them. See https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+RUN mkdir -p /etc/fastqc/Configuration /home/code/downloaded_src \
+ && curl -fL https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip \
+        -o /home/code/downloaded_src/fastqc_v0.12.1_source.zip \
+ && unzip -q /home/code/downloaded_src/fastqc_v0.12.1_source.zip -d /tmp \
+ && cp /tmp/FastQC/Configuration/adapter_list.txt \
+       /tmp/FastQC/Configuration/limits.txt \
+       /tmp/FastQC/Configuration/contaminant_list.txt \
+       /etc/fastqc/Configuration/ \
+ && rm -rf /tmp/FastQC
 
-# Download the source and extract to get out config files
-RUN curl https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip -o /home/fastqc_v0.12.1_source.zip
-RUN unzip /home/fastqc_v0.12.1_source.zip -d /home
-
-# Make the directory and copy the files into it
-RUN mkdir -p /etc/fastqc/Configuration
-RUN cp /home/FastQC/Configuration/adapter_list.txt \
-    /home/FastQC/Configuration/limits.txt  \
-    /home/FastQC/Configuration/contaminant_list.txt \
-    /etc/fastqc/Configuration
-
-# delete unzipped directory and archive source
-RUN mkdir -p /home/code/downloaded_src
-RUN mv /home/fastqc_v0.12.1_source.zip /home/code/downloaded_src
-RUN rm -rf /home/FastQC
-
-# Download newest version of sratoolkit from NCBI
-RUN wget --output-document /home/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
-RUN tar -vxzf /home/sratoolkit.tar.gz -C /home # un-gnuzip and untar
-RUN mv /home/sratoolkit.tar.gz /home/code/downloaded_src # archive download
-
-# move to code/tools
-RUN mkdir -p /home/code/tools
-RUN mv /home/sratoolkit.3.4.1-ubuntu64 /home/code/tools
-
-RUN cd /home/code/tools; git clone git://github.com/lh3/bioawk.git
-RUN cd /home/code/tools/bioawk; make
+# sratoolkit (latest from NCBI) and bioawk (built from source)
+RUN mkdir -p /home/code/tools /home/code/downloaded_src \
+ && curl -fL https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz \
+        -o /home/code/downloaded_src/sratoolkit.tar.gz \
+ && tar -xzf /home/code/downloaded_src/sratoolkit.tar.gz -C /home/code/tools \
+ && mv /home/code/tools/sratoolkit.*-ubuntu64 /home/code/tools/sratoolkit \
+ && git clone https://github.com/lh3/bioawk.git /home/code/tools/bioawk \
+ && make -C /home/code/tools/bioawk
 
 COPY markdown.nanorc /usr/share/nano/
 COPY init_docker.sh /
 
 WORKDIR /home
 
-RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit.3.4.1-ubuntu64/bin/:/home/code/tools/bioawk/" >> /home/.profile
+RUN echo "export PATH=${PATH}:/home/code/tools/sratoolkit/bin/:/home/code/tools/bioawk/" >> /home/.profile
 RUN echo "export BLASTDB=/blast-db" >> /home/.profile
 RUN echo "git config --global core.editor nano" >> /home/.profile
 RUN echo "/usr/bin/bash" >> /home/.profile
